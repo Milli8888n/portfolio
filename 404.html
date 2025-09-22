@@ -3,19 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; url=/portfolio/" />
     <script>
       // SPA redirect for GitHub Pages
       (function() {
         var path = window.location.pathname;
         // If already under /portfolio/, send to root index preserving query/hash
         var base = '/portfolio/';
-        if (!path.startsWith(base)) {
-          window.location.replace(base);
-          return;
-        }
-        // For nested routes, send back to base with hash to allow client router to resolve
-        var newUrl = base + '#'+ path.slice(base.length) + window.location.search + window.location.hash;
+        // Always send to base index with hash of the full path
+        var cleanPath = path.startsWith(base) ? path.slice(base.length) : path;
+        var newUrl = base + '#' + cleanPath + window.location.search + window.location.hash;
         window.location.replace(newUrl);
       })();
     </script>
